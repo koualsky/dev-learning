@@ -3,6 +3,13 @@ HOW TO DEBUG?
 1. Set configuration for debugging file
 2. 'Debug'
 3. ...
+
+HOW TO DEBUG DJANGO?
+1. Set configuration
+   - script path to: manage.py
+   - script parameters: runserver
+2. 'Debug'
+3 ...
 """
 
 import random
