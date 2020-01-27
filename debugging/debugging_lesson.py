@@ -1,37 +1,42 @@
 """
-DEBUGGING LESSON
-
-How to debug with pdb:
-	$ python -m pdb buggy.py
-
-Or interactively:
-	>>> import pdb
-	>>> import buggy
-	>>> buggy.crash()
-	>>> pdb.pm()
-
-Usually start debugging here (in debugging py file):
-	import pdb
-	pdb.set_trace()
-
-	# usually in main:
-		import pdb; pdb.set_trace()
-
-Usually pdb commands:
-	l(ist)
-	n(ext)
-	c(ontinue)
-	s(tep)
-	r(eturn)
-	b(reak)
-	And python
+HOW TO DEBUG?
+1. Set configuration for debugging file
+2. 'Debug'
+3. ...
 """
 
-print('1')
-print('2')
-print('3')
-print('4')
-print('5')
-print('6')
-print('7')
-print('8')
+import random
+
+def generateRandom(upper):
+    """
+
+    :param upper: >= 0
+    :return: int
+    """
+
+    r = random.randint(1, upper)
+    return r
+
+def main():
+
+    run = True
+    num1 = generateRandom(10)
+    num2 = generateRandom(10)
+    result = num1 * num2
+    while run:
+        ans = input("What is " + str(num1) + " x " + str(num2) + "? ")
+
+        if ans.isdigit():
+            if int(ans) == result:
+                print("Correct!")
+                run = False
+            else:
+                print("Incorrect! Try again.")
+        else:
+            print("Answer must be a positive number, try again.")
+
+# global vars
+times = 10
+
+for x in range(times):
+    main()
