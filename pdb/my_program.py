@@ -8,6 +8,9 @@ python3 -m pdb my_program.py
 n - next
 c - continue until next set_trace()
 p c - po dojsciu do breakpointu komenda ta pokaze wartosc zmiennej c. jak bym wpisal p filename to pokaze wartosc filename
+pp - the same but is pretty printed
+whatis - print the type of the expression
+source - try to get source code for the given object and display it
 q - wychodzi
 """
 
