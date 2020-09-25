@@ -1,8 +1,10 @@
 """
-Klasa 'Task' jest ogółem, jest ważniejsza i nie może wiedzieć nic o klasach niższych, szczegółowych, więc musi mieć metody zaimplementowane za pomocą interfejsu
+Klasa 'Task' jest ogółem, jest ważniejsza i nie może wiedzieć nic o klasach niższych, szczegółowych,
+więc musi mieć metody zaimplementowane za pomocą interfejsu
 klasa 'Process' jest szczegółem
 
-Jak o tym myśleć? Napisać klasę Task, która za pomocą agregacji pobiera obiekt do dalszej obróbki... Ale, żeby mieć jakiegoś hinta,
+Jak o tym myśleć? Napisać klasę Task, która za pomocą agregacji pobiera obiekt do dalszej obróbki...
+Ale, żeby mieć jakiegoś hinta,
 to dodać sobie klasę abstrakcyjną i zrobić to tak: process: ProcessInterface w konstruktorze Task'a.
 Bo dzięki temu też, mamy pewność, że przekazana klasa, implementująca interfejs, będzie miała metodę send...
 I będziemy mogli robić to elastycznie, bez modyfikacji klasy Task i podejmowania ryzyka zepsucia czegoś.
