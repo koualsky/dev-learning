@@ -12,3 +12,24 @@ print(result_or)
 print(result_xor)
 print(result_and)
 print(result_exclude)
+
+# ---------------------------------------------------
+
+a = {'adam', 'tomasz', 'jacek'}
+
+print('maciej' in a)   # False
+print('adam' in a)     # True
+print({'tomasz'} < a)  # True (tomasz zawiera się w zbiorze a)
+
+# ---------------------------------------------------
+
+engineers = {'robert', 'amadeusz', 'anna', 'aleksander'}
+managers = {'edward', 'amadeusz'}
+
+# 'robert' in engineers  # True
+# engineers & managers   # ('amadeusz') - is engineer and manager
+# engineers | managers   # {'edward', 'amadeusz', 'anna', 'robert', 'aleksander'} - all from both categories
+# engineers - managers   # {'robert', 'aleksander', 'anna'} Engineers who are not Managers
+# managers - engineers   # {'edward'} Managers who are not Engineers
+# engineers > managers   # False. All managers are engineers?
+# {'robert', 'amadeusz'} < engineers  # True. They are engineers?
