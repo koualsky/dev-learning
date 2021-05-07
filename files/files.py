@@ -86,3 +86,5 @@ adam.say_my_name()
 
 # So I can save objects with pickle module, but if I want to read my own custom objects,
 # I need to import my custom class and then load pickled object.
+
+# But if I use dict or list for pickle, I dont need nothing else. It just work :)
