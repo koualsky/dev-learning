@@ -1,4 +1,6 @@
-# Namedtuple is good idea for representing records or objects like point.
+"""
+Namedtuple is good idea for representing records or objects like point.
+"""
 
 from collections import namedtuple
 
