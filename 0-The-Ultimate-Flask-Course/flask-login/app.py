@@ -1,6 +1,12 @@
-from flask import Flask, render_template, request
+from http.client import INSUFFICIENT_STORAGE
+from flask import Flask, render_template, request, session, redirect, url_for
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
+from urllib.parse import urlparse, urljoin
+
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
 
 login_manager = LoginManager()
 db = SQLAlchemy()
@@ -40,7 +46,13 @@ def create_app():
             if not user:
                 return 'User does not exist'
             login_user(user)
-            return 'You are logged in!'
+
+            if 'next' in session and session['next']:
+                if is_safe_url(session['next']):
+                    return redirect(session['next'])
+
+            return redirect(url_for('index'))
+        session['next'] = request.args.get('next')
         return render_template('login.html')
     
     @app.route('/logout')
@@ -48,6 +60,10 @@ def create_app():
     def logout():
         logout_user()
         return 'You now logged out!'
+    
+    @app.route('/')
+    def index():
+        return 'You on a home (index) page.'
 
     return app
 
