@@ -19,9 +19,9 @@ def create_app():
     login_manager.init_app(app)
     db.init_app(app)
 
-    # thanks to this, if user is not logged in and e.g. try to go to /profile
-    # - app will redirect him to login page
-    login_manager.login_view = 'login'
+    login_manager.login_view = 'login'  # thanks to this, if user is not logged in and e.g. try to go to /profile - app will redirect him to login page
+    login_manager.login_message = 'Hello dude, please log in to acces this page.'  # There I can change message for user if he try to go to some page, and he id not logged in.
+
 
     @login_manager.user_loader
     def load_user(user_id):
