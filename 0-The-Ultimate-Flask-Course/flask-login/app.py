@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 
@@ -28,11 +28,16 @@ def create_app():
     def profile():
         return f'You are in the profile, {current_user.username}.'
     
-    @app.route('/login')
+    @app.route('/login', methods=['GET', 'POST'])
     def login():
-        user = User.query.filter_by(username='Maciej').first()
-        login_user(user)
-        return 'You now logged in!'
+        if request.method == 'POST':
+            username = request.form.get('username')
+            user = User.query.filter_by(username=username).first()
+            if not user:
+                return 'User does not exist'
+            login_user(user)
+            return 'You are logged in!'
+        return render_template('login.html')
     
     @app.route('/logout')
     @login_required
