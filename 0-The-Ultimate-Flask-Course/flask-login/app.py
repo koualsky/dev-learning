@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_login import LoginManager, UserMixin
+from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 
 login_manager = LoginManager()
@@ -19,9 +19,31 @@ def create_app():
     login_manager.init_app(app)
     db.init_app(app)
 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+    
+    @app.route('/profile')
+    @login_required
+    def profile():
+        return f'You are in the profile, {current_user.username}.'
+    
+    @app.route('/login')
+    def login():
+        user = User.query.filter_by(username='Maciej').first()
+        login_user(user)
+        return 'You now logged in!'
+    
+    @app.route('/logout')
+    @login_required
+    def logout():
+        logout_user()
+        return 'You now logged out!'
+
     return app
 
 
+# 1.
 # How to create db? -> In activated venv in shell:
 # from app import db, create_app, User
 # db.create_all(app=create_app())
@@ -30,3 +52,11 @@ def create_app():
 # sqlite3 db.sqlite3
 # .tables (and i should see my tables)
 # .schema -> will show me schema of user model
+#
+# 2.
+# And now after creating user 'Maciej' and
+# go to the /login
+# and then /profile - i should see my profile :)
+#
+# 3.
+# 
