@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+<p>Hello {{ name }}, you are on the home page!</p>
+
+<p>Database Results!</p>
+{% for item in results %}
+<p>ID: {{ item.id }} Name: {{ item.name }} Location {{ item.location}}</p>
+{% endfor %}
+
+{% if display %}
+<p>This is being displayed when 'display' is True!</p>
+{% else %}
+<p>And this is displayed when 'display' is False.</p>
+{% endif %}
+
+{% for x in mylist %}
+<li>{{ x }}</li>
+{% endfor %}
+
+<p>---</p>
+
+{% for x in listofdicts %}
+<li>{{ x.name }}</li>
+{% endfor %}
+
+<img src="{{ url_for('static', filename="image.png") }}">
+
+{% include "something_to_include.html" %}
+{% endblock %}
