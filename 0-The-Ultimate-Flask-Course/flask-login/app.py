@@ -42,10 +42,11 @@ def create_app():
     def login():
         if request.method == 'POST':
             username = request.form.get('username')
+            remember_me = request.form.get('remember_me')
             user = User.query.filter_by(username=username).first()
             if not user:
                 return 'User does not exist'
-            login_user(user)
+            login_user(user, remember=remember_me)  # ThatI activate remember cookie. So after restart browser I'll still logged in. (i added true/false check in frontend)
 
             if 'next' in session and session['next']:
                 if is_safe_url(session['next']):

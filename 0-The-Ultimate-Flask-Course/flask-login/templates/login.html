@@ -8,6 +8,7 @@
 <body>
     <form action="/login" method="POST">
         Username <input type="text" name="username">
+        Remember me <input type="checkbox" name="remember_me">
         <button>Submit</button>
     </form>
     {% with messages = get_flashed_messages() %}
