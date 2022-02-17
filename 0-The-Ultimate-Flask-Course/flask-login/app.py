@@ -3,17 +3,24 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from urllib.parse import urlparse, urljoin
+from itsdangerous import URLSafeSerializer
 
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
 
-login_manager = LoginManager()
 db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True)
+    username = db.Column(db.String(30), unique=True)
+    password = db.Column(db.String(30))
+    session_token = db.Column(db.String(100), unique=True)
+
+    def get_id(self):
+        return self.session_token
 
 
 def create_app():
@@ -30,9 +37,12 @@ def create_app():
 
 
     @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
+    def load_user(session_token):
+        return User.query.filter_by(session_token=session_token).first()
     
+    def create_user():
+        user = User(username='Maciej', password='password1', session_token=)
+
     @app.route('/profile')
     @login_required
     def profile():

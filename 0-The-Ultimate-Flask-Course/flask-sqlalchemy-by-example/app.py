@@ -27,7 +27,8 @@ class Customer(db.Model):
     city = db.Column(db.String(50), nullable=False)
     postcode = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
-    orders = db. relationship('Order', backref='customer')                             # second step to create relation
+
+    orders = db.relationship('Order', backref='customer')                             # second step to create relation - backreference
 
 
 class Product(db.Model):
@@ -48,9 +49,10 @@ class Order(db.Model):
     shipped_date = db.Column(db.DateTime)
     delivered_date = db.Column(db.DateTime)
     coupon_code = db.Column(db.String(50))
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)  # first step to create relation
 
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)  # first step to create relation - relation to table (with id)
     products = db.relationship('Product', secondary=order_product)
+    customer = db.relationship('Customer')  # a bie powinno tu teraz byc takiej relacji?
 
 
 def add_customers():
